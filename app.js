@@ -57,20 +57,18 @@ const people = [
 ];
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
-const fifteen = inventors.filter(
-  inventor => inventor.year >= 1500 && inventor.year < 1600
-);
-
-console.table(fifteen);
+const inventor15 = inventors.filter(inventor => {
+  if (inventor.year >= 1500 && inventor.year < 1600) {
+    return true;
+  }
+});
+console.table(inventor15);
 
 // Array.prototype.map()
 // 2. Give us an array of the inventors' first and last names
 
-const fullName = inventors.map(
-  inventor => inventor.first + ", " + inventor.last
-);
-console.table(fullName);
-
+const name = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+console.table(name);
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
 //the sorting metho will compare 2 at a time going through the array, by return -1 and 1 it will allow the sort method to sort the array accordingly, returning 1 meaning true for the condition u want to sort by and -1 would be false
@@ -83,24 +81,12 @@ console.table(fullName);
 //   }
 // });
 
-const sorter = inventors.sort((a, b) => (a.year > b.year ? 1 : -1));
-console.table(sorter);
-
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live?
 
-const totalYear = inventors.reduce((total, inventor) => {
-  return total + (inventor.passed - inventor.year);
-}, 0);
 //we need the 0 in there because the total first time aroung would be undefined
-console.log(totalYear);
 
 // 5. Sort the inventors by years lived
-
-const age = inventors.sort((a, b) =>
-  a.passed - a.year > b.passed - b.year ? 1 : -1
-);
-console.table(age);
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -113,12 +99,6 @@ console.table(age);
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
-const alpha = people.sort(function(lastOne, nextOne) {
-  const [aLast, aFirst] = lastOne.split(", ");
-  const [bLast, bFirst] = nextOne.split(", ");
-  return aLast > bLast ? 1 : -1;
-});
-console.table(alpha);
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
