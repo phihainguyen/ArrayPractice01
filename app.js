@@ -10,7 +10,7 @@ const inventors = [
   { first: "Ada", last: "Lovelace", year: 1815, passed: 1852 },
   { first: "Sarah E.", last: "Goode", year: 1855, passed: 1905 },
   { first: "Lise", last: "Meitner", year: 1878, passed: 1968 },
-  { first: "Hanna", last: "Hammarström", year: 1829, passed: 1909 }
+  { first: "Hanna", last: "Hammarström", year: 1829, passed: 1709 }
 ];
 const people = [
   "Berne, Eric",
@@ -69,10 +69,24 @@ console.table(inventor15);
 
 const name = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
 console.table(name);
+
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
-//the sorting metho will compare 2 at a time going through the array, by return -1 and 1 it will allow the sort method to sort the array accordingly, returning 1 meaning true for the condition u want to sort by and -1 would be false
+//the sorting method will compare 2 at a time going through the array, by return -1 and 1 it will allow the sort method to sort the array accordingly, returning 1 meaning true for the condition u want to sort by and -1 would be false
+const age = inventors.sort((inventor1, inventor2) => {
+  const age1 = inventor1.passed - inventor1.year;
+  const age2 = inventor2.passed - inventor2.year;
+  console.log(age1);
+  if (age1 > age2) {
+    return -1;
+  } else {
+    return 1;
+  }
+});
+console.table(age);
 
+const oldest = inventors.sort((a1, a2) => (a1.year > a2.year ? 1 : -1));
+console.table(oldest);
 // const sorter = inventors.sort(function(person1, person2) {
 //   if (person1.year > person2.year) {
 //     return 1;
@@ -83,10 +97,19 @@ console.table(name);
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live?
-
+const totalYears = inventors.reduce((total, inventor) => {
+  return total + (inventor.passed - inventor.year);
+}, 0);
+console.log(totalYears);
 //we need the 0 in there because the total first time aroung would be undefined
 
 // 5. Sort the inventors by years lived
+const lived = inventors.sort((p1, p2) => {
+  const age1 = p1.passed - p1.year;
+  const age2 = p2.passed - p2.year;
+  return age1 > age2 ? 1 : -1;
+});
+console.log(lived);
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -99,6 +122,12 @@ console.table(name);
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+const alpha = people.sort((per1, per2) => {
+  const [last, first] = per1.split(",");
+  const [last2, first2] = per2.split(",");
+  return last > last2 ? 1 : -1;
+});
+console.table(alpha);
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
