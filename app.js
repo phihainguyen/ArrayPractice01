@@ -147,11 +147,60 @@ const data = [
   "car",
   "truck"
 ];
-const transportation = data.reduce((object, item) => {
-  if (!object[item]) {
-    object[item] = 0;
+const transportation = data.reduce((obj, item) => {
+  if (!obj[item]) {
+    obj[item] = 0;
   }
-  object[item]++;
-  return object;
+  obj[item]++;
+  return obj;
 }, {});
 console.log(transportation);
+
+//=======================PART 2========================//
+const person = [
+  { name: "Wes", year: 1988 },
+  { name: "Kait", year: 1986 },
+  { name: "Irv", year: 1970 },
+  { name: "Lux", year: 2015 }
+];
+const comments = [
+  { text: "Love this!", id: 523423 },
+  { text: "Super good", id: 823423 },
+  { text: "You are the best", id: 2039842 },
+  { text: "Ramen is my fav food ever", id: 123523 },
+  { text: "Nice Nice Nice!", id: 542328 }
+];
+// Some and Every Checks
+// Array.prototype.some() // is at least one person 19 or older?
+//this method will check if at least one thing meets what you are looking for
+const adult = person.some(x => {
+  const currentYear = new Date().getFullYear();
+  if (currentYear - x.year >= 19) {
+    return true;
+  }
+});
+console.log({ adult });
+// Array.prototype.every() // is everyone 19 or older?
+
+const is19 = person.every(x => new Date().getFullYear() - x.year === 19);
+console.log({ is19 });
+// Array.prototype.find()
+//similar to .filter, but instead of returning a subset of arrays it will return the first item it finds that you are looking for
+
+// Find is like filter, but instead returns just the one you are looking for
+// find the comment with the ID of 823423
+const comment = comments.find(comment => comment.id === 823423);
+console.log(comment);
+// Array.prototype.findIndex()
+// Find the comment with this ID
+// delete the comment with the ID of 823423
+
+const deleteComment = comments.findIndex(comment => comment.id === 823423);
+comments.splice(deleteComment, 1);
+console.table(comments);
+// or we can do it this way creating a new array
+const newComments = [
+  ...comments.slice(0, deleteComment),
+  ...comments.slice(deleteComment + 1)
+];
+console.table(newComments);
